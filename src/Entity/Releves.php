@@ -62,4 +62,8 @@ class Releves
 
         return $this;
     }
+    public function getTableau(): array
+    {
+        return explode('/', $this->releveBrut);
+    }
 }

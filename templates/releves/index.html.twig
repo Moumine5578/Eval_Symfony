@@ -13,7 +13,7 @@
             <th>Relevé Brut</th>
             <th>Tableau</th>
             <th>Visualisation</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -39,20 +39,25 @@
                         {% endfor %}
                     </table>
                 </td>
-
-
                 <td>
-                    <table class='tableauVisualisation'>
-                        {% for i in 0..2 %}
+                    <table class='visualisation' style="border-spacing: 0;">
+                        {% set Tableau = relefe.getTableau() %}
+                        {% for row in 0..2 %}
                             <tr>
-                                {% for j in 0..2 %}
-                                    <td>
+                                {% for tab in 0..2 %}
+                                    <td style="padding: 0;">
                                         <table class='petitTableau'>
-                                            {% for k in 0..2 %}
+                                            {% set casesVertes = Tableau[row*3 + tab] %}
+                                            {% set casesVides = 9 %}
+                                            {% for row2 in 0..2 %}
                                                 <tr>
-                                                    {% for l in 0..2 %}
-                                                        {% set isGreen = random() < 0.5 %}
-                                                        <td class='{% if isGreen %}vert{% endif %}'></td>
+                                                    {% for tab2 in 0..2 %}
+                                                        {% if casesVertes > 0 and random(0, 1) > 0.5 %}
+                                                            <td class="vert"></td>
+                                                            {% set casesVertes = casesVertes - 1 %}
+                                                        {% else %}
+                                                            <td></td>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </tr>
                                             {% endfor %}
@@ -63,13 +68,6 @@
                         {% endfor %}
                     </table>
                 </td>
-
-
-
-
-
-
-
                 <td>
                     <a class="btn btn-primary" href="{{ path('app_releves_show', {'id': relefe.id}) }}">voir</a>
                     <a class="btn btn-success" href="{{ path('app_releves_edit', {'id': relefe.id}) }}">modifier</a>
@@ -87,16 +85,19 @@
     <a href="{{ path('app_releves_new') }}" class="btn btn-primary" >Ajouter</a>
 
     <style>
-        .vert {
-            background-color: #4CAF50; /* Vert */
-        }
-        .petitTableau {
-            width: 30px; /* Ajustez la taille selon vos besoins */
-            height: 30px; /* Ajustez la taille selon vos besoins */
-        }
-        .tableauVisualisation {
+        .visualisation {
             border-collapse: collapse;
         }
+
+        .petitTableau {
+            width: 30px;
+            height: 30px;
+        }
+
+        .vert {
+            background-color: #008b1c;
+        }
+
 
     </style>
 {% endblock %}
