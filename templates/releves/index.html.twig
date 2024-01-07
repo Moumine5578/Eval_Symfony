@@ -41,20 +41,19 @@
                 </td>
                 <td>
                     <table class='visualisation' style="border-spacing: 0;">
-                        {% set Tableau = relefe.getTableau() %}
+                        {% set releveArray = relefe.releveBrut|split('/') %}
                         {% for row in 0..2 %}
                             <tr>
-                                {% for tab in 0..2 %}
+                                {% for col in 0..2 %}
                                     <td style="padding: 0;">
                                         <table class='petitTableau'>
-                                            {% set casesVertes = Tableau[row*3 + tab] %}
-                                            {% set casesVides = 9 %}
-                                            {% for row2 in 0..2 %}
+                                            {% for _ in 0..2 %}
                                                 <tr>
-                                                    {% for tab2 in 0..2 %}
-                                                        {% if casesVertes > 0 and random(0, 1) > 0.5 %}
+                                                    {% for _ in 0..2 %}
+                                                        {% set isVert = (releveArray[row*3 + col] - 1) >= 0 %}
+                                                        {% if isVert %}
                                                             <td class="vert"></td>
-                                                            {% set casesVertes = casesVertes - 1 %}
+                                                            {% set releveArray = releveArray|slice(0, row*3 + col)|merge([releveArray[row*3 + col] - 1])|merge(releveArray|slice(row*3 + col + 1)) %}
                                                         {% else %}
                                                             <td></td>
                                                         {% endif %}
@@ -68,6 +67,8 @@
                         {% endfor %}
                     </table>
                 </td>
+
+
                 <td>
                     <a class="btn btn-primary" href="{{ path('app_releves_show', {'id': relefe.id}) }}">voir</a>
                     <a class="btn btn-success" href="{{ path('app_releves_edit', {'id': relefe.id}) }}">modifier</a>
