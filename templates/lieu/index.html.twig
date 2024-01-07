@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lieu index{% endblock %}
+{% block title %}Lieu {% endblock %}
 
 {% block body %}
-    <h1>Lieu index</h1>
+    <h1>Lieu </h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>actions</th>
             </tr>
@@ -16,11 +15,10 @@
         <tbody>
         {% for lieu in lieus %}
             <tr>
-                <td>{{ lieu.id }}</td>
                 <td>{{ lieu.nom }}</td>
                 <td>
-                    <a href="{{ path('app_lieu_show', {'id': lieu.id}) }}">show</a>
-                    <a href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_lieu_show', {'id': lieu.id}) }}">voir</a>
+                    <a class="btn btn-success" href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +29,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_lieu_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_lieu_new') }}">Ajouter</a>
 {% endblock %}

@@ -7,10 +7,7 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ lieu.id }}</td>
-            </tr>
+
             <tr>
                 <th>Nom</th>
                 <td>{{ lieu.nom }}</td>
@@ -18,9 +15,18 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_lieu_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_lieu_index') }}">Liste</a>
 
-    <a href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">edit</a>
+    <a class="btn btn-success" href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">modifier</a>
 
-    {{ include('lieu/_delete_form.html.twig') }}
+
+
+    <style>
+        .btn-primary{
+            margin-bottom: 10px;
+        }
+        .btn-success{
+            margin-bottom: 10px;
+        }
+    </style>
 {% endblock %}
